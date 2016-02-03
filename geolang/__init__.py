@@ -2,7 +2,7 @@ from geolang.geolang import (
 					__author__,
 					__version__,
 					_KA_ALPHABET,
-					_LAT_ALHPABET,
+					_LAT_ALPHABET,
 					KA2LAT,
 					LAT2KA,
 					UNI2LAT,
