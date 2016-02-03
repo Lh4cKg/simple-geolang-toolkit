@@ -155,6 +155,7 @@ class GeoLangToolKit(object):
 
 _inst = GeoLangToolKit()
 K2L = _inst.KA2LAT
+L2K = _inst.LAT2KA
 to_ka = _inst._2KA
 to_lat = _inst._2LAT
 print(to_ka('Z'))
