@@ -39,6 +39,24 @@ class GeoLangToolKit(object):
 		self.UNICODE = uc
 
 	@property
+	def get_ka_alphabet(self):
+		"""
+			get georgian alphabet
+		"""
+		
+		alphabet = self.KA_GE
+		return alphabet
+
+	@property
+	def get_lat_alphabet(self):
+		"""
+			get latin alphabet
+		"""
+
+		alphabet = self.LATIN_ALPHABET
+		return alphabet
+
+	@property
 	def KA2LAT(self):
 		"""
 		    Desc: character map of georgian to latin
