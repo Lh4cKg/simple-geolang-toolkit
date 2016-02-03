@@ -2,9 +2,8 @@
 
 # -*- coding: utf-8 -*
 
-
-
 import geolang as _ka
+from geolang import __author__, __version__
 
 KA_ALPHABET = _ka._KA_ALPHABET
 LAT_ALPHABET = _ka._LAT_ALPHABET
@@ -33,7 +32,7 @@ print(LAT_ALPHABET)
 'ძ': 'Z', 'წ': 'w', 'ფ': 'f', 'ზ': 'z', 'ი': 'i', 'ყ': 'y', 'ა': 'a', 'ს': 's', 'ე': 'e', 'შ': 'S', 'ჭ': 'W', 'ჰ': 'h', 'რ': 'r', 
 'ო': 'o', 'თ': 'T', 'ბ': 'b', 'ლ': 'l', 'ც': 'c', 'პ': 'p', 'ჯ': 'j'}
 """
-# print(K2L)
+print(K2L)
 
 """
 >>> L2K
@@ -41,13 +40,13 @@ print(LAT_ALPHABET)
 'n': 'ნ', 'v': 'ვ', 'T': 'თ', 'h': 'ჰ', 'y': 'ყ', 'r': 'რ', 't': 'ტ', 'j': 'ჯ', 'z': 'ზ', 'g': 'გ', 'R': 'ღ', 'l': 'ლ', 'J': 'ჟ', 'w': 'წ', 
 'c': 'ც', 'W': 'ჭ', 'o': 'ო', 'k': 'კ', 'm': 'მ'}
 """
-# print(L2K)
+print(L2K)
 
 """
 >>> U2T
 
 """
-# print(U2T)
+print(U2T)
 
 _try_2ka = "I Love You Python And Django"
 """
@@ -80,3 +79,4 @@ _try_encode_slugify_1 = "é\jcàé\jcàétéétéé\jéé\jcàété\jcàétécà
 b'ejcaejcaeteeteejeejcaetejcaetecaete'
 """
 print(encode_slugify(_try_encode_slugify_1))
+print('Author is %s, Package version is %s.' % (__author__,__version__))
