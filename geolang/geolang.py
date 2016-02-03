@@ -35,6 +35,7 @@ class GeoLangToolKit(object):
 		self.KA_GE = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
 		self.LATIN = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
 		self.LAT_ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+		self.UNICODE = unicode
 
 	@property
 	def KA2LAT(self):
@@ -72,7 +73,7 @@ class GeoLangToolKit(object):
 		Desc: character map of many unicode to latin
 		"""
 
-		convert = unicode
+		convert = self.UNICODE
 		return convert
 
 	def _2KA(self,data):
