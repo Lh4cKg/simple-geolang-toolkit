@@ -66,6 +66,7 @@ class GeoLangToolKit(object):
 		convert = {c: i for i, c in zip(self.LATIN, self.KA_GE)}
 		return convert
 
+	@property
 	def UNI2LAT(self):
 		"""
 		Desc: character map of many unicode to latin
