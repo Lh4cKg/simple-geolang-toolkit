@@ -35,7 +35,7 @@ class GeoLangToolKit(object):
 
 		self.KA_GE = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
 		self.LATIN = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
-		self.LAT_ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+		self.LATIN_ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 		self.UNICODE = uc
 
 	@property
