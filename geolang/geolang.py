@@ -126,12 +126,53 @@ class GeoLangToolKit(object):
 
 		return ''.join(converted)
 
+	def ENCODE_SLUGIFY(self,data,_slugify=True):
+		"""
+		   Desc: 
+
+		   >>> # examples
+		   >>> ENCODE_SLUGIFY("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ")
+		   'memiyvars-ani-da-iscemi-cxovbrebaa-c'
+		   >>> ENCODE_SLUGIFY("adé\jcà l\'huété")
+		   'adejca-lhuete'
+		   >>> ENCODE_SLUGIFY("更新时间") # not found unicode
+		   ' '   
+		   >>> ENCODE_SLUGIFY("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ",_slugify=False)
+		   "me'miyvars-ani da is/Cemi cxovbrebaa! C"
+		"""
+		# _slugify = True
+		def _rep_str(data):
+			"""
+			    Desc: replace string
+			"""
+
+			_str = data.group()
+			if _str in self.UNI2LAT:
+				return self.UNI2LAT[_str]
+			else:
+				return _str
+
+		value = re.sub('[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data)
+		if _slugify:
+			value = slugify(value)
+
+		result = value.encode('ascii','ignore')
+		return result
+
 _inst = GeoLangToolKit()
 K2L = _inst.KA2LAT
 L2K = _inst.LAT2KA
 U2L = _inst.UNI2LAT
 to_ka = _inst._2KA
 to_lat = _inst._2LAT
+encode_slugify = _inst.ENCODE_SLUGIFY
 print(to_ka('Z'))
 print(to_lat('ძ'))
-print(U2L)
+# print(U2L)
+_try = encode_slugify("更新时间")
+a = encode_slugify('')
+a1 = encode_slugify('adé\jcà l\'huété')
+_try2 = encode_slugify("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ",_slugify=False)
+print(_try)
+print(a1)
+print(_try2)
