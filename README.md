@@ -1,3 +1,5 @@
 Description
 ------------
-Simple Georgian Language Toolkit for Python 3
+Simple Georgian Language ToolKit for Python 3
+
+coming soon!
