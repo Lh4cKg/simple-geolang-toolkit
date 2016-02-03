@@ -181,7 +181,7 @@ class GeoLangToolKit(object):
 
 _inst = GeoLangToolKit()
 _KA_ALPHABET = _inst.get_ka_alphabet
-_LAT_ALHPABET = _inst.get_lat_alphabet
+_LAT_ALPHABET = _inst.get_lat_alphabet
 KA2LAT = _inst.KA2LAT
 LAT2KA = _inst.LAT2KA
 UNI2LAT = _inst.UNI2LAT
