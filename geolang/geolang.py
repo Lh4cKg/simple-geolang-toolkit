@@ -55,6 +55,7 @@ from django.template.defaultfilters import slugify
 
 
 class GeoLangToolKit(object):
+	
 	def __init__(self):
 		"""
 		Desc: georgian and latin alphabet
