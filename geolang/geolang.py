@@ -2,7 +2,8 @@
 
 # -*- coding: utf-8 -*
 
-__author__ = 'Lasha Gogua'
+__author__ = "Lasha Gogua"
+__version__ = "0.1.0"
 
 """
 Georgian Language Toolkit for Python 3
@@ -15,7 +16,7 @@ import re
 from django.template.defaultfilters import slugify
 
 # package imports
-from unicode import unicode
+from .unicode import unicode as uc
 
 class GeoLangToolKit(object):
 
@@ -35,7 +36,7 @@ class GeoLangToolKit(object):
 		self.KA_GE = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
 		self.LATIN = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
 		self.LAT_ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
-		self.UNICODE = unicode
+		self.UNICODE = uc
 
 	@property
 	def KA2LAT(self):
@@ -135,7 +136,7 @@ class GeoLangToolKit(object):
 		   'memiyvars-ani-da-iscemi-cxovbrebaa-c'
 		   >>> ENCODE_SLUGIFY("adé\jcà l\'huété")
 		   'adejca-lhuete'
-		   >>> ENCODE_SLUGIFY("更新时间") # not found unicode
+		   >>> ENCODE_SLUGIFY("更新时间") # could not find unicode
 		   ' '   
 		   >>> ENCODE_SLUGIFY("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ",_slugify=False)
 		   "me'miyvars-ani da is/Cemi cxovbrebaa! C"
@@ -159,20 +160,11 @@ class GeoLangToolKit(object):
 		result = value.encode('ascii','ignore')
 		return result
 
+
 _inst = GeoLangToolKit()
-K2L = _inst.KA2LAT
-L2K = _inst.LAT2KA
-U2L = _inst.UNI2LAT
-to_ka = _inst._2KA
-to_lat = _inst._2LAT
+KA2LAT = _inst.KA2LAT
+LAT2KA = _inst.LAT2KA
+UNI2LAT = _inst.UNI2LAT
+_2KA = _inst._2KA
+_2LAT = _inst._2LAT
 encode_slugify = _inst.ENCODE_SLUGIFY
-print(to_ka('Z'))
-print(to_lat('ძ'))
-# print(U2L)
-_try = encode_slugify("更新时间")
-a = encode_slugify('')
-a1 = encode_slugify('adé\jcà l\'huété')
-_try2 = encode_slugify("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ",_slugify=False)
-print(_try)
-print(a1)
-print(_try2)
