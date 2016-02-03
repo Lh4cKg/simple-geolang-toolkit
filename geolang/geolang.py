@@ -14,45 +14,8 @@ import re
 # django imports
 from django.template.defaultfilters import slugify
 
-# KA_GE = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
-# LATIN = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
-
-# character map of georgian to latin
-"""
-{'ხ': 'x', 'ა': 'a', 'ჭ': 'W', 'ჟ': 'J', 'ბ': 'b', 'რ': 'r', 'დ': 'd', 'ნ': 'n', 'ჩ': 'C', 'ფ': 'f', 'უ': 'u', 'თ': 'T', 'პ': 'p', 
-  'ტ': 't', 'ზ': 'z', 'ი': 'i', 'ლ': 'l', 'წ': 'w', 'გ': 'g', 'ღ': 'R', 'ე': 'e', 'მ': 'm', 'ყ': 'y', 'ვ': 'v', 'შ': 'S', 'ჰ': 'h', 
-  'კ': 'k', 'ძ': 'Z', 'ქ': 'q', 'ო': 'o', 'ჯ': 'j', 'ც': 'c', 'ს': 's'}
-"""
-# KA2LAT = {c: i for i, c in zip(LATIN, KA_GE)}
-
-# character map of latin to georgian
-"""
-{'S': 'შ', 'W': 'ჭ', 'k': 'კ', 'u': 'უ', 'n': 'ნ', 'R': 'ღ', 'o': 'ო', 'a': 'ა', 'b': 'ბ', 'v': 'ვ', 'x': 'ხ', 'j': 'ჯ', 'p': 'პ',
-  'C': 'ჩ', 't': 'ტ', 'J': 'ჟ', 's': 'ს', 'l': 'ლ', 'r': 'რ', 'Z': 'ძ', 'm': 'მ', 'i': 'ი', 'h': 'ჰ', 'q': 'ქ', 'e': 'ე', 'T': 'თ', 
-  'c': 'ც', 'd': 'დ', 'z': 'ზ', 'g': 'გ', 'w': 'წ', 'y': 'ყ'}
-"""
-# LAT2KA = {c: i for i, c in zip(KA_GE, LATIN)}
-
-# def _2KA(data):
-#         converted = []
-#         _KAchars = KA2LAT.keys()
-#         i = 0
-#         while i < len(data.lower()):
-#                 char = data[i]
-#                 i += 1
-#                 try:
-#                         converted.append(LAT2KA[char])
-#                 except KeyError:
-#                         if char in _KAchars:
-#                                 converted.append(char)
-#                         else:
-#                                 converted.append(' ')
-
-#         return ''.join(converted)
-
-# print(_2KA('data'))
-
-
+# package imports
+from unicode import unicode
 
 class GeoLangToolKit(object):
 
@@ -101,6 +64,14 @@ class GeoLangToolKit(object):
 		"""
 
 		convert = {c: i for i, c in zip(self.LATIN, self.KA_GE)}
+		return convert
+
+	def UNI2LAT(self):
+		"""
+		Desc: character map of many unicode to latin
+		"""
+
+		convert = unicode
 		return convert
 
 	def _2KA(self,data):
@@ -199,3 +170,41 @@ UNI2LAT = {
     'ё': 'E', 'ж': 'ZH', 'з': 'Z', 'и': 'I', 'й': 'I', 'к': 'K', 'л': 'L', 'м': 'M', 'н': 'N', 'о': 'O', 'п': 'P', 'р': 'R', 'с': 'S', 'т': 'T', 'у': 'U', 'ф': 'F', 'х': 'KH', 'ц': 'TS', 
     'ч': 'CH', 'ш': 'SH', 'щ': 'SHCH', 'ы': 'Y', 'э': 'E', 'ю': 'YU', 'я': 'YA', 'Ъ':'', 'ъ':'', 'Ь':'', 'ь':'', 'ð': 'd', 'Ð': 'D', 'þ': 'th', 'Þ': 'TH'
 }
+
+# KA_GE = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
+# LATIN = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
+
+# character map of georgian to latin
+"""
+{'ხ': 'x', 'ა': 'a', 'ჭ': 'W', 'ჟ': 'J', 'ბ': 'b', 'რ': 'r', 'დ': 'd', 'ნ': 'n', 'ჩ': 'C', 'ფ': 'f', 'უ': 'u', 'თ': 'T', 'პ': 'p', 
+  'ტ': 't', 'ზ': 'z', 'ი': 'i', 'ლ': 'l', 'წ': 'w', 'გ': 'g', 'ღ': 'R', 'ე': 'e', 'მ': 'm', 'ყ': 'y', 'ვ': 'v', 'შ': 'S', 'ჰ': 'h', 
+  'კ': 'k', 'ძ': 'Z', 'ქ': 'q', 'ო': 'o', 'ჯ': 'j', 'ც': 'c', 'ს': 's'}
+"""
+# KA2LAT = {c: i for i, c in zip(LATIN, KA_GE)}
+
+# character map of latin to georgian
+"""
+{'S': 'შ', 'W': 'ჭ', 'k': 'კ', 'u': 'უ', 'n': 'ნ', 'R': 'ღ', 'o': 'ო', 'a': 'ა', 'b': 'ბ', 'v': 'ვ', 'x': 'ხ', 'j': 'ჯ', 'p': 'პ',
+  'C': 'ჩ', 't': 'ტ', 'J': 'ჟ', 's': 'ს', 'l': 'ლ', 'r': 'რ', 'Z': 'ძ', 'm': 'მ', 'i': 'ი', 'h': 'ჰ', 'q': 'ქ', 'e': 'ე', 'T': 'თ', 
+  'c': 'ც', 'd': 'დ', 'z': 'ზ', 'g': 'გ', 'w': 'წ', 'y': 'ყ'}
+"""
+# LAT2KA = {c: i for i, c in zip(KA_GE, LATIN)}
+
+# def _2KA(data):
+#         converted = []
+#         _KAchars = KA2LAT.keys()
+#         i = 0
+#         while i < len(data.lower()):
+#                 char = data[i]
+#                 i += 1
+#                 try:
+#                         converted.append(LAT2KA[char])
+#                 except KeyError:
+#                         if char in _KAchars:
+#                                 converted.append(char)
+#                         else:
+#                                 converted.append(' ')
+
+#         return ''.join(converted)
+
+# print(_2KA('data'))
