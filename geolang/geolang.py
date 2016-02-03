@@ -55,7 +55,7 @@ from django.template.defaultfilters import slugify
 
 
 class GeoLangToolKit(object):
-	
+
 	def __init__(self):
 		"""
 		Desc: georgian and latin alphabet
@@ -78,6 +78,7 @@ class GeoLangToolKit(object):
 		"""
 		    Desc: character map of georgian to latin
 
+		    >>> # example
 		    >>> KA2LAT()
 		    {'ხ': 'x', 'ა': 'a', 'ჭ': 'W', 'ჟ': 'J', 'ბ': 'b', 'რ': 'r', 'დ': 'd', 'ნ': 'n', 'ჩ': 'C', 'ფ': 'f', 'უ': 'u', 'თ': 'T', 'პ': 'p', 
 		      'ტ': 't', 'ზ': 'z', 'ი': 'i', 'ლ': 'l', 'წ': 'w', 'გ': 'g', 'ღ': 'R', 'ე': 'e', 'მ': 'm', 'ყ': 'y', 'ვ': 'v', 'შ': 'S', 'ჰ': 'h', 
@@ -91,6 +92,8 @@ class GeoLangToolKit(object):
 	def LAT2KA(self):
 		"""
 		    Desc: character map of latin to georgian
+
+		    >>> # example
 		    >>> LAT2KA()
 		    {'S': 'შ', 'W': 'ჭ', 'k': 'კ', 'u': 'უ', 'n': 'ნ', 'R': 'ღ', 'o': 'ო', 'a': 'ა', 'b': 'ბ', 'v': 'ვ', 'x': 'ხ', 'j': 'ჯ', 'p': 'პ',
 		      'C': 'ჩ', 't': 'ტ', 'J': 'ჟ', 's': 'ს', 'l': 'ლ', 'r': 'რ', 'Z': 'ძ', 'm': 'მ', 'i': 'ი', 'h': 'ჰ', 'q': 'ქ', 'e': 'ე', 'T': 'თ', 
@@ -104,6 +107,7 @@ class GeoLangToolKit(object):
 		"""
 		Desc: convert the given name from latin into georgian chars
 
+		>>> # example
 		>>> _2KA('laSas uyvars ani da piToni lol ))')
 		ლაშას უყვარს ანი და პითონი ლოლ
 		"""
@@ -128,6 +132,7 @@ class GeoLangToolKit(object):
 		"""
 		Desc: convert the given name from georgian into latin chars
 
+		>>> # example
 		>>> _2LAT('მე მიყვარს ანი, ის ცხოვრობს თბილიში!')
 		me miyvars ani  is cxovrobs TbiliSi
 		"""
