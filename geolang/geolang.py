@@ -5,7 +5,7 @@
 __author__ = 'Lasha Gogua'
 
 """
-Georgia Language Toolkit for Python 3
+Georgian Language Toolkit for Python 3
 """
 
 # python imports
