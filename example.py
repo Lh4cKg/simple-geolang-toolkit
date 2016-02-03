@@ -13,9 +13,9 @@ _2KA = _ka._2KA
 _2LAT = _ka._2LAT
 encode_slugify = _ka.encode_slugify
 
-# print(K2L)
-# print(L2K)
-# print(U2T)
+print(K2L)
+print(L2K)
+print(U2T)
 _try_2ka = "I Love You Python And Django"
 """
 >>> _try_2ka = "I Love You Python And Django"
