@@ -8,7 +8,6 @@ from geolang.geolang import (
 					_2LAT,
 					encode_slugify,
 					GeoLangToolKit,
-					unicode,
 				)
 # from geolang.geolang import *
-from .uni2lat import *
+from .unicode import unicode
