@@ -42,6 +42,9 @@ class GeoLangToolKit(object):
 	def get_ka_alphabet(self):
 		"""
 			get georgian alphabet
+
+			>>> get_ka_alphabet()
+			აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ
 		"""
 
 		alphabet = self.KA_GE
@@ -51,6 +54,9 @@ class GeoLangToolKit(object):
 	def get_lat_alphabet(self):
 		"""
 			get latin alphabet
+
+			>>> get_lat_alphabet()
+			abcdefghijklmnopqrstuvwxyz
 		"""
 
 		alphabet = self.LATIN_ALPHABET
