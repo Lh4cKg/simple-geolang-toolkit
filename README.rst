@@ -64,7 +64,7 @@ License
 ------------------
 
 ``geolang`` is distributed under 
-[MIT license](LICENSE.md)
+[MIT license](LICENSE.md) 
 
 
 .. _examples: https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/example.py
