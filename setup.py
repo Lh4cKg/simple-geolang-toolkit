@@ -12,7 +12,7 @@ setup (
 	author = __author__,
 	author_email = "Lh4cKg@gmail.com",
 	url = "https://github.com/Lh4cKg/simple-geolang-toolkit/",
-	download_url = "https://github.com/Lh4cKg/simple-geolang-toolkit/releases/download/v0.1.0"
+	download_url = "https://github.com/Lh4cKg/simple-geolang-toolkit/releases/download/v0.1.0",
 	packages = ["geolang"],
 	classifiers=[
 		"Development Status :: Beta",
