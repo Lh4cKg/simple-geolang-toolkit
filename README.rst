@@ -63,7 +63,7 @@ There are plenty of ways to contribute to this project. If you think you’ve fo
 License
 ------------------
 
-``geolang`` is distributed under [MIT license] (https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/LICENSE.txt).
+``geolang`` is distributed under [MIT license]: https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/LICENSE.txt .
 
 .. _examples: https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/example.py
 .. _github: https://github.com/Lh4cKg/simple-geolang-toolkit
