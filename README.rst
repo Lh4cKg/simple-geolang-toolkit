@@ -24,6 +24,20 @@ To use ``geolang``, just import it in your project like so:
 
 >>> import geolang as _ka
 
+You can convert the Latin words in Georgian
+
+>>> latin_to_ka = _ka._2KA
+>>> _text_2ka = "i love you python and django"
+>>> latin_to_ka(_text_2ka)
+ი ლოვე  ყოუ  პყტჰონ  ანდ  დჯანგო
+
+You can convert the Georgian words in Latin
+
+>>> ka_to_latin = _ka._2LAT
+>>> _text_2lat = "მე მიყვარს ანი"
+>>> ka_to_latin(_text_2lat)
+me miyvars ani
+
 Source Code
 -----------------
 The source code can be found on github_.
