@@ -38,6 +38,16 @@ You can convert the Georgian words in Latin
 >>> ka_to_latin(_text_2lat)
 me miyvars ani
 
+>>> encode_slugify = _ka.encode_slugify
+>>> _try_encode_slugify = "ი ლოვე ყოუ პყტჰონ ანდ დჯანგო"
+>>> encode_slugify(_try_encode_slugify)
+b'i-love-you-python-and-django'
+>>> encode_slugify(_try_encode_slugify, _slugify=False)
+b'i love you python and django'
+>>> _try_encode_slugify_1 = "é\jcàé\jcàétéétéé\jéé\jcàété\jcàétécàété"
+>>> encode_slugify(_try_encode_slugify_1)
+b'ejcaejcaeteeteejeejcaetejcaetecaete'
+
 Source Code
 -----------------
 The source code can be found on github_.
