@@ -48,7 +48,7 @@ b'i love you python and django'
 >>> encode_slugify(_try_encode_slugify_1)
 b'ejcaejcaeteeteejeejcaetejcaetecaete'
 
- See the examples_ in this project.
+ See more examples_ in this project.
 
 Source Code
 -----------------
