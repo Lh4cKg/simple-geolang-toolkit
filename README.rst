@@ -11,11 +11,17 @@ Installation Requirements
 * Django >= 1.7 
 * To install the source, download it from https://github.com/Lh4cKg/simple-geolang-toolkit and do ``python setup.py install``.
 
-To install ``geolang``::
+A simple way to install ``geolang`` package::
+
+    $ pip install geolang
+    $ pip install -r requirements.txt
+
+To install the source ``geolang`` package::
 
     $ git clone https://github.com/Lh4cKg/simple-geolang-toolkit "geolang"
     $ cd geolang
     $ sudo python setup.py install # if you do not have a default Python 3, then use the python3 install instead of python install
+    $ pip install -r requirements.txt
 
 Usage
 ---------
@@ -63,10 +69,10 @@ There are plenty of ways to contribute to this project. If you think you’ve fo
 License
 ------------------
 
-``geolang`` is distributed under 
-[MIT license](LICENSE.md) 
+``geolang`` is distributed under MIT license_. 
 
 
 .. _examples: https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/example.py
 .. _github: https://github.com/Lh4cKg/simple-geolang-toolkit
 .. _issue: https://github.com/Lh4cKg/simple-geolang-toolkit/issues
+.. _license: https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/LICENSE.md
