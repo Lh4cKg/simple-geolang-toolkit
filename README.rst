@@ -8,6 +8,7 @@ Installation Requirements
 -----------------------------------
 
 * Python 3.0, 3.1, 3.2, 3.3, 3.4, 3.5
+* Django >= 1.7 
 * To install the source, download it from https://github.com/Lh4cKg/simple-geolang-toolkit and do ``python setup.py install``.
 
 To install ``geolang``::
