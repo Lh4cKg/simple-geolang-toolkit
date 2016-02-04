@@ -52,12 +52,18 @@ b'ejcaejcaeteeteejeejcaetejcaetecaete'
 
 Source Code
 -----------------
+
 The source code can be found on github_.
 
 Contributing
 -----------------
+
 There are plenty of ways to contribute to this project. If you think you’ve found a bug please submit an issue_.
 
+License
+------------------
+
+``geolang`` is distributed under under MIT license.
 
 .. _examples: https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/example.py
 .. _github: https://github.com/Lh4cKg/simple-geolang-toolkit
