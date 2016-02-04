@@ -59,5 +59,5 @@ Contributing
 There are plenty of ways to contribute to this project. If you think you’ve found a bug please submit an issue.
 
 
-.. _github: https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/example.py
+.. _examples: https://github.com/Lh4cKg/simple-geolang-toolkit/blob/master/example.py
 .. _github: https://github.com/Lh4cKg/simple-geolang-toolkit
