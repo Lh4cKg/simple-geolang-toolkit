@@ -12,8 +12,10 @@ setup (
 	author = __author__,
 	author_email = "Lh4cKg@gmail.com",
 	url = "https://github.com/Lh4cKg/simple-geolang-toolkit/",
-	download_url = "https://github.com/Lh4cKg/simple-geolang-toolkit/releases",
+	download_url = "https://github.com/Lh4cKg/simple-geolang-toolkit/tarball/v0.1.1",
 	packages = ["geolang"],
+	license = "MIT",
+	keywords = ['geolang', 'ToolKit', 'toolkit'], 
 	classifiers=[
 		"Environment :: Console",
 		"Environment :: Web Environment",
