@@ -11,12 +11,18 @@ Georgian Language Toolkit for Python 3
 
 # python imports
 import re
+import unicodedata
 
 # django imports
-from django.template.defaultfilters import slugify
+# from django.template.defaultfilters import slugify
+from django.utils.functional import allow_lazy
+from django.utils.safestring import SafeText, mark_safe
+from django.utils.encoding import force_text
+from django.utils.six import text_type
 
 # package imports
 from .unicode import unicode as uc
+
 
 class GeoLangToolKit(object):
 
@@ -61,6 +67,25 @@ class GeoLangToolKit(object):
 
 		alphabet = self.LATIN_ALPHABET
 		return alphabet
+
+	@property
+	def KA2KA(self):
+		"""
+		Desc: georgian to georgian
+
+		"""
+
+		convert = {c: i for i, c in zip(self.KA_GE, self.KA_GE) }
+		return convert
+
+	@property
+	def LAT2LAT(self):
+		"""
+		Desc: latin to latin
+		"""
+
+		convert = {c: i for i,c in zip(self.LATIN, self.LATIN)}
+		return convert
 
 	@property
 	def KA2LAT(self):
@@ -151,7 +176,7 @@ class GeoLangToolKit(object):
 
 		return ''.join(converted)
 
-	def ENCODE_SLUGIFY(self,data,_slugify=True):
+	def ENCODE_SLUGIFY(self,data,_slugify=True,_lower=False):
 		"""
 		   Desc: 
 
@@ -165,19 +190,37 @@ class GeoLangToolKit(object):
 		   >>> ENCODE_SLUGIFY("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ",_slugify=False)
 		   "me'miyvars-ani da is/Cemi cxovbrebaa! C"
 		"""
+
 		# _slugify = True
-		def _rep_str(data):
+		def slugify(value):
+			"""
+			Desc: Converts to ASCII. Converts spaces to hyphens. Removes characters that
+			aren't alphanumerics, underscores, or hyphens. Also strips leading and trailing whitespace.
+			"""
+
+			value = force_text(value)
+			value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
+			value = re.sub('[^\w\s-]', '', value).strip()
+			return mark_safe(re.sub('[-\s]+', '-', value))
+		
+		slugify = allow_lazy(slugify, text_type, SafeText)
+
+		def _rep_str(match):
 			"""
 			    Desc: replace string
 			"""
 
-			_str = data.group()
+			_str = match.group()
 			if _str in self.UNI2LAT:
 				return self.UNI2LAT[_str]
 			else:
 				return _str
 
-		value = re.sub('[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data)
+		if _lower is True:
+			value = re.sub('[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data).lower()
+		else:
+			value = re.sub('[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data)
+
 		if _slugify:
 			value = slugify(value)
 
@@ -188,6 +231,8 @@ class GeoLangToolKit(object):
 _inst = GeoLangToolKit()
 _KA_ALPHABET = _inst.get_ka_alphabet
 _LAT_ALPHABET = _inst.get_lat_alphabet
+KA2KA = _inst.KA2KA
+LAT2LAT = _inst.LAT2LAT
 KA2LAT = _inst.KA2LAT
 LAT2KA = _inst.LAT2KA
 UNI2LAT = _inst.UNI2LAT
