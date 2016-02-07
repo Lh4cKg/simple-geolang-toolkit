@@ -14,7 +14,6 @@ import re
 import unicodedata
 
 # django imports
-# from django.template.defaultfilters import slugify
 from django.utils.functional import allow_lazy
 from django.utils.safestring import SafeText, mark_safe
 from django.utils.encoding import force_text
