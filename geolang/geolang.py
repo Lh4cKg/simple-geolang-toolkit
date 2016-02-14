@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*
 
 __author__ = "Lasha Gogua"
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 """
 Georgian Language Toolkit for Python 3
