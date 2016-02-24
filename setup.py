@@ -19,7 +19,7 @@ setup (
 	author = __author__,
 	author_email = "Lh4cKg@gmail.com",
 	url = "https://github.com/Lh4cKg/simple-geolang-toolkit/",
-	download_url = "https://github.com/Lh4cKg/simple-geolang-toolkit/tarball/v0.1.1",
+	download_url = "https://github.com/Lh4cKg/simple-geolang-toolkit/tarball/v0.1.3",
 	packages = find_packages(), #["geolang"],
 	license = "MIT",
 	keywords = ['geolang', 'ToolKit', 'toolkit'], 
