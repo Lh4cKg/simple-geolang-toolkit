@@ -80,3 +80,6 @@ b'ejcaejcaeteeteejeejcaetejcaetecaete'
 """
 print(encode_slugify(_try_encode_slugify_1))
 print('Author is %s, Package version is %s.' % (__author__,__version__))
+
+name = 'ლაშას უყვარს ანი. ჩ,ჟ,ჭ,თ,ძ,ღ'
+print(encode_slugify(name, _slugify=True, _lower=True, _uni_v_ka=True))
