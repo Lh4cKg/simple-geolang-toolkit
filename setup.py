@@ -2,18 +2,25 @@
 
 import sys
 from distutils.core import setup
+from setuptools import setup, find_packages
 from geolang import __version__, __author__
 assert sys.version >= "3.0", "Requires Python v3.0 or above versions."
+
+try:
+    desc = open('README.rst').read()
+except:
+    desc = 'see README.rst'
 
 setup (
 	name = "geolang",
 	version = __version__,
 	description = "Simple Georgian Language ToolKit",
+	long_description = desc, 
 	author = __author__,
 	author_email = "Lh4cKg@gmail.com",
 	url = "https://github.com/Lh4cKg/simple-geolang-toolkit/",
 	download_url = "https://github.com/Lh4cKg/simple-geolang-toolkit/tarball/v0.1.1",
-	packages = ["geolang"],
+	packages = find_packages(), #["geolang"],
 	license = "MIT",
 	keywords = ['geolang', 'ToolKit', 'toolkit'], 
 	classifiers=[
