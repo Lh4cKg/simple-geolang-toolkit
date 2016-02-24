@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*
 
 __author__ = "Lasha Gogua"
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 """
 Georgian Language Toolkit for Python 3
@@ -21,6 +21,7 @@ from django.utils.six import text_type
 
 # package imports
 from .unicode import unicode as uc
+from .unicode import unicode_version_ka as uni_v_ka
 
 
 class GeoLangToolKit(object):
@@ -42,6 +43,7 @@ class GeoLangToolKit(object):
 		self.LATIN = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
 		self.LATIN_ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 		self.UNICODE = uc
+		self.UNI_V_KA = uni_v_ka
 
 	@property
 	def get_ka_alphabet(self):
@@ -125,6 +127,15 @@ class GeoLangToolKit(object):
 		convert = self.UNICODE
 		return convert
 
+	@property
+	def UNI_V_KA2LAT(self):
+		"""
+		Desc: character map of many unicode to latin
+		"""
+
+		convert = self.UNI_V_KA
+		return convert
+
 	def _2KA(self,data):
 		"""
 		Desc: convert the given name from latin into georgian chars
@@ -175,7 +186,7 @@ class GeoLangToolKit(object):
 
 		return ''.join(converted)
 
-	def ENCODE_SLUGIFY(self,data,_slugify=True,_lower=False):
+	def ENCODE_SLUGIFY(self,data,_slugify=True,_lower=False,_uni_v_ka=False):
 		"""
 		   Desc: 
 
@@ -215,10 +226,24 @@ class GeoLangToolKit(object):
 			else:
 				return _str
 
+		def _rep_str_uni_v_ka(match):
+			"""
+			    Desc: replace string
+			"""
+
+			_str = match.group()
+			if _str in self.UNI_V_KA2LAT:
+				return self.UNI_V_KA2LAT[_str]
+			else:
+				return _str
+
 		if _lower is True:
 			value = re.sub('[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data).lower()
 		else:
 			value = re.sub('[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data)
+
+		if _lower is True and _uni_v_ka is True:
+			value = re.sub('[^a-zA-Z0-9\\s\\-]{1}', _rep_str_uni_v_ka, data).lower()
 
 		if _slugify:
 			value = slugify(value)
