@@ -20,7 +20,7 @@ from django.utils.six import text_type
 from .unicode import unicode_all as uc_all, unicode_ka as uc_ka
 
 __author__ = "Lasha Gogua"
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 
 
 class GeoLangToolKit(object):
@@ -259,9 +259,9 @@ class GeoLangToolKit(object):
         result = '%s' % value
         return result
 
-# instance = GeoLangToolKit()
-# ka2Lat = instance.ka2lat
-# lat2Ka = instance.lat2ka
-# _2ka = instance._2ka
-# _2lat = instance._2lat
-# encode_slugify = instance.encode_slugify
+instance = GeoLangToolKit()
+ka2Lat = instance.ka2lat
+lat2Ka = instance.lat2ka
+_2ka = instance._2ka
+_2lat = instance._2lat
+encode_slugify = instance.encode_slugify
