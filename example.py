@@ -5,26 +5,12 @@
 import geolang as _ka
 from geolang import __author__, __version__
 
-KA_ALPHABET = _ka._KA_ALPHABET
-LAT_ALPHABET = _ka._LAT_ALPHABET
-K2L = _ka.KA2LAT
-L2K = _ka.LAT2KA
-U2T = _ka.UNI2LAT
-_2KA = _ka._2KA
-_2LAT = _ka._2LAT
+
+K2L = _ka.ka2Lat
+L2K = _ka.lat2Ka
+_2KA = _ka._2ka
+_2LAT = _ka._2lat
 encode_slugify = _ka.encode_slugify
-
-"""
->>> KA_ALPHABET
-აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ
-"""
-print(KA_ALPHABET)
-
-"""
->>> LAT_ALPHABET
-abcdefghijklmnopqrstuvwxyz
-"""
-print(LAT_ALPHABET)
 
 """
 >>> K2L
@@ -41,12 +27,6 @@ print(K2L)
 'c': 'ც', 'W': 'ჭ', 'o': 'ო', 'k': 'კ', 'm': 'მ'}
 """
 print(L2K)
-
-"""
->>> U2T
-
-"""
-print(U2T)
 
 _try_2ka = "I Love You Python And Django"
 """
@@ -82,4 +62,4 @@ print(encode_slugify(_try_encode_slugify_1))
 print('Author is %s, Package version is %s.' % (__author__,__version__))
 
 name = 'ლაშას უყვარს ანი. ჩ,ჟ,ჭ,თ,ძ,ღ'
-print(encode_slugify(name, _slugify=True, _lower=True, _uni_v_ka=True))
+print(encode_slugify(name, _slugify=True, _lower=True, uni_ka=True))
