@@ -45,34 +45,46 @@ class GeoLangToolKit(object):
             ჭ - W
         """
 
-        self.ka_ge = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
-        self.latin = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
-        self.latin_alphabet = 'abcdefghijklmnopqrstuvwxyz'
-        self.unicode_all = uc_all
-        self.unicode_ka = uc_ka
+        self._ka_ge = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
+        self._latin_ka = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
+        self._latin = 'abcdefghijklmnopqrstuvwxyz'
+        self._unicode_all = uc_all
+        self._unicode_ka = uc_ka
 
     @property
-    def get_ka_alphabet(self):
+    def ka_ge(self):
         """
             get georgian alphabet
 
-            >>> get_ka_alphabet()
-            აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ
+            >>> ka_ge()
+            'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
         """
 
-        alphabet = self.ka_ge
+        alphabet = self._ka_ge
         return alphabet
 
     @property
-    def get_lat_alphabet(self):
+    def latin(self):
         """
             get latin alphabet
 
-            >>> get_lat_alphabet()
-            abcdefghijklmnopqrstuvwxyz
+            >>> latin()
+            'abcdefghijklmnopqrstuvwxyz'
         """
 
-        alphabet = self.latin_alphabet
+        alphabet = self._latin
+        return alphabet
+
+    @property
+    def latin_ka(self):
+        """
+            get latin_ka alphabet
+
+            >>> latin_ka()
+            'abgdevzTiklmnopJrstufqRySCcZwWxjh'
+        """
+
+        alphabet = self._latin
         return alphabet
 
     @property
@@ -90,7 +102,7 @@ class GeoLangToolKit(object):
         Desc: latin to latin
         """
 
-        convert = {c: i for i, c in zip(self.latin, self.latin)}
+        convert = {c: i for i, c in zip(self.latin_ka, self.latin_ka)}
         return convert
 
     @property
@@ -107,7 +119,7 @@ class GeoLangToolKit(object):
               'კ': 'k', 'ძ': 'Z', 'ქ': 'q', 'ო': 'o', 'ჯ': 'j', 'ც': 'c', 'ს': 's'}
         """
 
-        convert = {c: i for i, c in zip(self.ka_ge, self.latin)}
+        convert = {c: i for i, c in zip(self.ka_ge, self.latin_ka)}
         return convert
 
     @property
@@ -124,7 +136,7 @@ class GeoLangToolKit(object):
               'c': 'ც', 'd': 'დ', 'z': 'ზ', 'g': 'გ', 'w': 'წ', 'y': 'ყ'}
         """
 
-        convert = {c: i for i, c in zip(self.latin, self.ka_ge)}
+        convert = {c: i for i, c in zip(self.latin_ka, self.ka_ge)}
         return convert
 
     @property
@@ -133,7 +145,7 @@ class GeoLangToolKit(object):
         Desc: character map of many unicode to latin
         """
 
-        convert = self.unicode_all
+        convert = self._unicode_all
         return convert
 
     @property
@@ -142,7 +154,7 @@ class GeoLangToolKit(object):
         Desc: character map of many unicode to latin
         """
 
-        convert = self.unicode_ka
+        convert = self._unicode_ka
         return convert
 
     def _2ka(self, data):
