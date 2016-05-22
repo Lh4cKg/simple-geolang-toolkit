@@ -102,7 +102,7 @@ class GeoLangToolKit(object):
         Desc: latin to latin
         """
 
-        convert = {c: i for i, c in zip(self.latin_ka, self.latin_ka)}
+        convert = {c: i for i, c in zip(self.latin, self.latin)}
         return convert
 
     @property
