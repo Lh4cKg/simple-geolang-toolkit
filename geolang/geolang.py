@@ -84,7 +84,7 @@ class GeoLangToolKit(object):
             'abgdevzTiklmnopJrstufqRySCcZwWxjh'
         """
 
-        alphabet = self._latin
+        alphabet = self._latin_ka
         return alphabet
 
     @property
