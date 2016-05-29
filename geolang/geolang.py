@@ -207,7 +207,7 @@ class GeoLangToolKit(object):
 
         return ''.join(converted)
 
-    def encode_slugify(self, data, _slugify=True, _lower=False, uni_ka=False):
+    def encode_slugify(self, data, _slugify=True, lower=False, uni_ka=False):
         """
            Desc:
 
@@ -256,12 +256,12 @@ class GeoLangToolKit(object):
                     return _str
 
 
-        if _lower is True:
+        if lower:
             value = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data).lower()
         else:
             value = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data)
 
-        if _lower is True and uni_ka is True:
+        if lower and uni_ka:
             value = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data).lower()
 
         if _slugify:
