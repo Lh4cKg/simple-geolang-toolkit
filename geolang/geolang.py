@@ -261,7 +261,7 @@ class GeoLangToolKit(object):
         else:
             value = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data)
 
-        if lower and uni_ka:
+        if uni_ka:
             value = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data).lower()
 
         if _slugify:
