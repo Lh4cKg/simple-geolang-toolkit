@@ -62,4 +62,11 @@ print(encode_slugify(_try_encode_slugify_1))
 print('Author is %s, Package version is %s.' % (__author__,__version__))
 
 name = 'ლაშას უყვარს ანი. ჩ,ჟ,ჭ,თ,ძ,ღ'
+"""
+>>> name = 'ლაშას უყვარს ანი. ჩ,ჟ,ჭ,თ,ძ,ღ'
+>>> encode_slugify(name, _slugify=False, lower=True, uni_ka=False)
+lasas uyvars ani. c,j,w,t,z,r
+>>> encode_slugify(name, _slugify=False, lower=True, uni_ka=True)
+lashas uyvars ani. ch,j,ch,t,dz,g
+"""
 print(encode_slugify(name, _slugify=False, lower=True, uni_ka=True))
