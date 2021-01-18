@@ -14,7 +14,7 @@ from unicodedata import normalize
 
 __author__ = 'Lasha Gogua'
 __email__ = 'Lh4cKg@gmail.com'
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 
 __all__ = ['GeoLangToolKit', 'encode_slugify', 'encode_text']
 
@@ -23,7 +23,7 @@ class GeoLangToolKit(object):
 
     def __init__(
             self,
-            ka2latin_script: Union[str, List[str], Tuple[Iterable[str]]] = None
+            latin_script: Union[str, List[str], Tuple[Iterable[str]]] = None
     ) -> None:
         """
         Romanization of Georgian is the process of transliterating the Georgian
@@ -48,16 +48,16 @@ class GeoLangToolKit(object):
         """
         self.ka_script: str = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
 
-        if isinstance(ka2latin_script, (list, tuple)):
-            self.latin_script = ka2latin_script
-        elif isinstance(ka2latin_script, str):
-            if len(ka2latin_script) < 33:
+        if isinstance(latin_script, (list, tuple)):
+            self.latin_script = latin_script
+        elif isinstance(latin_script, str):
+            if len(latin_script) < 33:
                 raise ValueError(
                     'Wrong latin script characters, available list, '
                     'tuple or comma separated string, max length 33.'
                 )
             else:
-                self.latin_script = ka2latin_script.split(',')
+                self.latin_script = latin_script.split(',')
         else:
             self.latin_script: Iterable[str] = (
                 'a', 'b', 'g', 'd', 'e', 'v', 'z', 't', 'i', 'k', 'l', 'm',
