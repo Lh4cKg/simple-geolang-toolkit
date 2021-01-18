@@ -1,279 +1,244 @@
-#!/usr/bin/env python
-
 # -*- coding: utf-8 -*
 
 """
 Georgian Language Toolkit for Python 3
+
+Source: <https://github.com/Lh4cKg/simple-geolang-toolkit>
 """
 
-# python imports
 import re
-import unicodedata
+from typing import Dict, Any, Iterable, Union, List, Tuple
+from functools import lru_cache, partial
+from unicodedata import normalize
 
-# django imports
-from django.utils.functional import allow_lazy
-from django.utils.safestring import SafeText, mark_safe
-from django.utils.encoding import force_text
-from django.utils.six import text_type
 
-# package imports
-from .unicode import unicode_all as uc_all, unicode_ka as uc_ka
+__author__ = 'Lasha Gogua'
+__email__ = 'Lh4cKg@gmail.com'
+__version__ = '0.2.0'
 
-__author__ = "Lasha Gogua"
-__version__ = "0.1.4"
+__all__ = ['GeoLangToolKit', 'encode_slugify', 'encode_text']
 
 
 class GeoLangToolKit(object):
-    """
-    Note
-     -
-    Args
-     -
-    Attributes
-     -
-    """
-    def __init__(self):
+
+    def __init__(
+            self,
+            ka2latin_script: Union[str, List[str], Tuple[Iterable[str]]] = None
+    ) -> None:
         """
-        Desc: georgian and latin alphabet
-        ანბანში დამატებითი ასოები აღნიშნულია, შემდეგი ასოებით:
-            თ - T
-            ჟ - J
-            ღ - R
-            შ - S
-            ჩ - C
-            ძ - Z
-            ჭ - W
+        Romanization of Georgian is the process of transliterating the Georgian
+        language from the Georgian script into the Latin script.
+
+        default script is National:
+            თ - t
+            კ - k'
+            ტ - t'
+            ფ - p
+            ქ - k
+            პ - p'
+            ჟ - zh
+            ღ - gh
+            ყ - q'
+            შ - sh
+            ჩ - ch
+            ც - ts
+            ძ - dz
+            წ - ts'
+            ჭ - ch'
         """
+        self.ka_script: str = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
 
-        self._ka_ge = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
-        self._latin_ka = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
-        self._latin = 'abcdefghijklmnopqrstuvwxyz'
-        self._unicode_all = uc_all
-        self._unicode_ka = uc_ka
-
-    @property
-    def ka_ge(self):
-        """
-            get georgian alphabet
-
-            >>> ka_ge()
-            'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
-        """
-
-        alphabet = self._ka_ge
-        return alphabet
-
-    @property
-    def latin(self):
-        """
-            get latin alphabet
-
-            >>> latin()
-            'abcdefghijklmnopqrstuvwxyz'
-        """
-
-        alphabet = self._latin
-        return alphabet
-
-    @property
-    def latin_ka(self):
-        """
-            get latin_ka alphabet
-
-            >>> latin_ka()
-            'abgdevzTiklmnopJrstufqRySCcZwWxjh'
-        """
-
-        alphabet = self._latin_ka
-        return alphabet
-
-    @property
-    def __ka2ka(self):
-        """
-        Desc: georgian to georgian
-        """
-
-        convert = {c: i for i, c in zip(self.ka_ge, self.ka_ge)}
-        return convert
-
-    @property
-    def __lat2lat(self):
-        """
-        Desc: latin to latin
-        """
-
-        convert = {c: i for i, c in zip(self.latin, self.latin)}
-        return convert
-
-    @property
-    def ka2lat(self):
-        """
-            Desc: character map of georgian to latin
-
-            >>> # example
-            >>> ka2lat()
-            {'ხ': 'x', 'ა': 'a', 'ჭ': 'W', 'ჟ': 'J', 'ბ': 'b', 'რ': 'r', 'დ': 'd',
-              'ნ': 'n', 'ჩ': 'C', 'ფ': 'f', 'უ': 'u', 'თ': 'T', 'პ': 'p',
-              'ტ': 't', 'ზ': 'z', 'ი': 'i', 'ლ': 'l', 'წ': 'w', 'გ': 'g', 'ღ': 'R',
-              'ე': 'e', 'მ': 'm', 'ყ': 'y', 'ვ': 'v', 'შ': 'S', 'ჰ': 'h',
-              'კ': 'k', 'ძ': 'Z', 'ქ': 'q', 'ო': 'o', 'ჯ': 'j', 'ც': 'c', 'ს': 's'}
-        """
-
-        convert = {c: i for i, c in zip(self.ka_ge, self.latin_ka)}
-        return convert
-
-    @property
-    def lat2ka(self):
-        """
-            Desc: character map of latin to georgian
-
-            >>> # example
-            >>> lat2ka()
-            {'S': 'შ', 'W': 'ჭ', 'k': 'კ', 'u': 'უ', 'n': 'ნ', 'R': 'ღ', 'o': 'ო',
-               'a': 'ა', 'b': 'ბ', 'v': 'ვ', 'x': 'ხ', 'j': 'ჯ', 'p': 'პ',
-              'C': 'ჩ', 't': 'ტ', 'J': 'ჟ', 's': 'ს', 'l': 'ლ', 'r': 'რ', 'Z': 'ძ',
-              'm': 'მ', 'i': 'ი', 'h': 'ჰ', 'q': 'ქ', 'e': 'ე', 'T': 'თ',
-              'c': 'ც', 'd': 'დ', 'z': 'ზ', 'g': 'გ', 'w': 'წ', 'y': 'ყ'}
-        """
-
-        convert = {c: i for i, c in zip(self.latin_ka, self.ka_ge)}
-        return convert
-
-    @property
-    def __uni2lat(self):
-        """
-        Desc: character map of many unicode to latin
-        """
-
-        convert = self._unicode_all
-        return convert
-
-    @property
-    def __uni_ka2lat(self):
-        """
-        Desc: character map of many unicode to latin
-        """
-
-        convert = self._unicode_ka
-        return convert
-
-    def _2ka(self, data):
-        """
-        Desc: convert the given name from latin into georgian chars
-
-        >>> # example
-        >>> _2ka('laSas uyvars ani da piToni lol ))')
-        ლაშას უყვარს ანი და პითონი ლოლ
-        """
-
-        converted = []
-        ka_chars = self.ka2lat.keys()
-        i = 0
-        while i < len(data.lower()):
-            char = data[i]
-            i += 1
-            try:
-                converted.append(self.ka2lat[char])
-            except KeyError:
-                if char in ka_chars:
-                    converted.append(char)
-                else:
-                    converted.append(' ')
-
-        return ''.join(converted)
-
-    def _2lat(self, data):
-        """
-        Desc: convert the given name from georgian into latin chars
-
-        >>> # example
-        >>> _2lat('მე მიყვარს ანი, ის ცხოვრობს თბილიში!')
-        me miyvars ani  is cxovrobs TbiliSi
-        """
-
-        converted = []
-        lat_chars = self.ka2lat.keys()
-        i = 0
-        while i < len(data.lower()):
-            char = data[i]
-            i += 1
-            try:
-                converted.append(self.lat2ka[char])
-            except KeyError:
-                if char in lat_chars:
-                    converted.append(char)
-                else:
-                    converted.append(' ')
-
-        return ''.join(converted)
-
-    def encode_slugify(self, data, _slugify=True, lower=False, uni_ka=False):
-        """
-           Desc:
-
-           >>> # examples
-           >>> ENCODE_SLUGIFY("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ")
-           'memiyvars-ani-da-iscemi-cxovbrebaa-c'
-           >>> ENCODE_SLUGIFY("adé\jcà lr\r'huété")
-           'adejca-lhuete'
-           >>> ENCODE_SLUGIFY("更新时间") # could not find unicode
-           ' '
-           >>> ENCODE_SLUGIFY("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ",_slugify=False)
-           "me'miyvars-ani da is/Cemi cxovbrebaa! C"
-        """
-
-        # _slugify = True
-        def slugify(value):
-            """
-            Desc: Converts to ASCII. Converts spaces to hyphens. Removes characters that
-            aren't alphanumerics, underscores, or hyphens.
-            Also strips leading and trailing whitespace.
-            """
-
-            value = force_text(value)
-            value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
-            value = re.sub(r'[^\w\s-]', '', value).strip()
-            return mark_safe(re.sub(r'[-\s]+', '-', value))
-
-        slugify = allow_lazy(slugify, text_type, SafeText)
-
-        def _rep_str(match):
-            """
-                Desc: replace string
-            """
-
-            _str = match.group()
-
-            if uni_ka:
-                if _str in self.__uni_ka2lat:
-                    return self.__uni_ka2lat[_str]
-                else:
-                    return _str
+        if isinstance(ka2latin_script, (list, tuple)):
+            self.latin_script = ka2latin_script
+        elif isinstance(ka2latin_script, str):
+            if len(ka2latin_script) < 33:
+                raise ValueError(
+                    'Wrong latin script characters, available list, '
+                    'tuple or comma separated string, max length 33.'
+                )
             else:
-                if _str in self.__uni2lat:
-                    return self.__uni2lat[_str]
-                else:
-                    return _str
-
-
-        if lower:
-            value = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data).lower()
+                self.latin_script = ka2latin_script.split(',')
         else:
-            value = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data)
+            self.latin_script: Iterable[str] = (
+                'a', 'b', 'g', 'd', 'e', 'v', 'z', 't', 'i', 'k', 'l', 'm',
+                'n', 'o', 'p', 'zh', 'r', 's', 't', 'u', 'p', 'k', 'gh', 'q',
+                'sh', 'ch', 'ts', 'dz', 'ts', 'ch', 'kh', 'j', 'h'
+            )
 
-        if uni_ka:
-            value = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', _rep_str, data).lower()
+    @property
+    @lru_cache
+    def ka2lat_map(self) -> Dict[str, str]:
+        """
 
-        if _slugify:
-            value = slugify(value)
+        :return characters map of georgian to latin
+        """
 
-        # result = value.encode('ascii', 'ignore')
-        result = '%s' % value
-        return result
+        return {ka: lat for ka, lat in zip(self.ka_script, self.latin_script)}
 
-instance = GeoLangToolKit()
-ka2Lat = instance.ka2lat
-lat2Ka = instance.lat2ka
-_2ka = instance._2ka
-_2lat = instance._2lat
+    @property
+    @lru_cache
+    def lat2ka_map(self) -> Dict[str, str]:
+        """
+
+        :return georgian characters map of latin to georgian
+        """
+
+        return {lat: ka for lat, ka in zip(self.latin_script, self.ka_script)}
+
+    def lat2ka(self, value: str, na_value: str = None) -> str:
+        """
+        convert the given string from latin into georgian chars
+
+        :param value: Georgian or Latin text
+        :param na_value: N/A value if could not find character, default None.
+
+        :return
+
+        >>> # example
+        >>> self.lat2ka('laSas uyvars ana da piToni lol ))')
+        "ლაSას უyვარს ანა და ფიTონი ლოლ ))"
+        """
+
+        chars = list()
+        i = 0
+        while i < len(value):
+            char = value[i]
+            try:
+                chars.append(self.lat2ka_map[char])
+            except KeyError:
+                if na_value:
+                    chars.append(na_value)
+                else:
+                    chars.append(char)
+            i += 1
+
+        return ''.join(chars)
+
+    def ka2lat(self, value: str, na_value: str = None) -> str:
+        """
+        convert the given name from georgian into latin chars
+
+        :param value: Georgian or Latin text
+        :param na_value: N/A value if could not find character, default None.
+
+        :return
+
+        >>> # example
+        >>> self.ka2lat('მე მიყვარს ანა!')
+        "me miqvars ana!"
+        """
+
+        chars = list()
+        i = 0
+        while i < len(value):
+            char = value[i]
+            try:
+                chars.append(self.ka2lat_map[char])
+            except KeyError:
+                if na_value:
+                    chars.append(na_value)
+                else:
+                    chars.append(char)
+            i += 1
+
+        return ''.join(chars)
+
+    def _replace_str(self, ka2latin: bool, match: re.Match) -> str:
+        """
+        replace strings
+        """
+
+        char = match.group()
+
+        if ka2latin and char in self.ka2lat_map:
+            return self.ka2lat_map[char]
+
+        return char
+
+    @staticmethod
+    def _slugify(value: Any) -> str:
+        """
+        Converts to ASCII. Converts spaces to hyphens.
+        Removes characters that
+        aren't alphanumerics, underscores, or hyphens.
+        Also strips leading and trailing whitespace.
+
+        """
+
+        if isinstance(value, bytes):
+            s = str(value, 'utf-8', 'strict')
+        else:
+            s = str(value)
+        s = normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii')
+        return re.sub(r'[-\s]+', '-', re.sub(r'[^\w\s-]', '', s).strip())
+
+    def encode_slugify(self, value: str, ka2latin: bool = False) -> str:
+        """
+
+        Convert Georgian letters to latin if 'ka2latin' is True.
+        Convert spaces to hyphens.
+        Remove characters that aren't alphanumerics, underscores, or hyphens.
+        Convert to lowercase. Also strip leading and trailing whitespace.
+
+        :param value: Georgian or Latin text
+        :param ka2latin: if True, value with Georgian letters will be converted
+                        to Latin letters, default False.
+        :return:
+
+        >>> encode_slugify("მე\'მიყვარს-ანი და ის/ჩემი ცხოვბრებაა! ჩ", True)
+        "memiqvars-ani-da-ischemi-tskhovbrebaa-ch"
+        >>> encode_slugify("პითონი და ჯანგო")
+        >>> encode_slugify("adé\jcà lr\\rr'huété")  # could not find unicode
+        "adé\jcà lr\\rr'huété"
+        >>> encode_slugify("更新时间")  # could not find unicode
+        "更新时间"
+
+        """
+
+        if isinstance(value, bytes):
+            value = str(value, 'utf-8', 'strict')
+        else:
+            value = str(value)
+
+        replace_str = partial(self._replace_str, ka2latin)
+        s = re.sub(r'[^a-zA-Z0-9\\s\\-]{1}', replace_str, value)
+
+        return re.sub(r'[-\s]+', '-', re.sub(r'[^\w\s-]', '', s).strip().lower())
+
+    def encode_text(
+            self,
+            value: str,
+            ka2latin: bool = True,
+            latin2ka: bool = False,
+            na_value: str = None) -> str:
+        """
+
+        :param value: Georgian or Latin text
+        :param ka2latin: if True, value with Georgian letters will be converted
+                        to Latin letters, default True.
+        :param latin2ka: if True, value with Latin letters will be converted
+                        to Georgian letters, default False.
+        :param na_value: N/A value if could not find character, default None.
+        :return: georgian or latin letters
+        """
+
+        if not ka2latin and not latin2ka:
+            raise ValueError(
+                'Missing required argument, '
+                'Choose one `ka2latin` or `latin2ka`'
+            )
+
+        if isinstance(value, bytes):
+            value = str(value, 'utf-8', 'strict')
+        else:
+            value = str(value)
+
+        if latin2ka:
+            return self.lat2ka(value, na_value)
+
+        return self.ka2lat(value, na_value)
+
+
+instance: GeoLangToolKit = GeoLangToolKit()
 encode_slugify = instance.encode_slugify
+encode_text = instance.encode_text
